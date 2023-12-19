@@ -19,6 +19,7 @@ resource "aws_api_gateway_base_path_mapping" "this" {
 module "dns_record" {
   source  = "ptonini/route53-record/aws"
   version = "~> 1.1.1"
+  count = var.zone_id == null ? 0 : 1
   name    = aws_api_gateway_domain_name.this.domain_name
   zone_id = var.zone_id
   alias = {
